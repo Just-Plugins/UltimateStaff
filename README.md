@@ -1,0 +1,1 @@
+[![Latest Release](https://img.shields.io/static/v1.svg?label=Latest-Release&message=1.1-snapshot&color=red)]()

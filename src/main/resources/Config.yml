@@ -1,0 +1,122 @@
+# █   █ █     █████ █████ █   █  ███  █████ █████ █████ █████  ███  █████ █████
+# █   █ █       █     █   ██ ██ █   █   █   █     █       █   █   █ █     █
+# █   █ █       █     █   █ █ █ █████   █   ████  █████   █   █████ ████  ████
+# █   █ █       █     █   █   █ █   █   █   █         █   █   █   █ █     █
+# █████ █████   █   █████ █   █ █   █   █   █████ █████   █   █   █ █     █
+#
+# AUTHOR: JustPlugins (Ditz, Nathan)
+# WIKI: https://ultimatestaff.xyz/wiki
+# Copyright JustPlugins. All rights reserved.
+
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | GENERAL SETTINGS                          |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | CHAT SETTINGS                             |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+ChatSettings:
+
+  AntiAdvertisement:
+    Enabled: false
+
+    WhiteList:
+      - google.com
+      - facebook.com
+
+  BannedWords:
+    Enabled: false
+    # The word or symbol you want the BannedWord to change to.
+    Replacement: "bobba"
+    List:
+      - cunt
+      - bitch
+      - slut
+
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | REPORTS                                   |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+Reports:
+  Enabled: false
+
+  Reasons:
+    - "Fly Hack"
+    - "Reach Hack"
+    - "Kill Aura"
+    - "X-Ray"
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | PUNISH TEMPLATES                          |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+Punishments:
+  Duration:
+    - "7d"
+    - "16d"
+    - "perm"
+  Reasons:
+    - "Fly Hack"
+    - "Reach Hack"
+    - "Kill Aura"
+    - "X-Ray"
+    - "Racism"
+    - "Spamming"
+    - "Advertising"
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | DISCONNECT MESSAGES                       |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+Message:
+  KickMessage:
+      - "&9&lUltimate Staff"
+      - "&r"
+      - "&c&fYou have been Kicked"
+      - "&r"
+      - "&9Reason: &f{REASON}"
+
+  BanMessage:
+    - "&9&lUltimate Staff"
+    - "&r"
+    - "&c&fYou have been Banned"
+    - "&r"
+    - "&9Reason: &f{REASON}"
+    - "&9Duration: &f{DURATION}"
+
+
+  IPBanMessage:
+    - "&9&lUltimate Staff"
+    - "&r"
+    - "&c&fYour IP has been Banned"
+    - "&r"
+    - "&9Reason: &f{REASON}"
+    - "&9Duration: &f{DURATION}"
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | NO RULE BREAKERS                          |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+NoRuleBreakers:
+  Enabled: false
+
+  Update:
+    rate: 180000
+
+  Actions:
+    High: "Kick"
+    Medium: "Kick"
+    Low: "Warn"
+
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+# | MYSQL SETTINGS                            |
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
+MySQL:
+  Enabled: false
+  # WIP
