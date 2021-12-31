@@ -26,7 +26,7 @@ public class VanishModule implements Listener {
             player.sendTitle("", Utils.Color("&fVanish Mode &7| &aOn"), 0, 50, 20);
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 10, 1);
             for (Player people : Bukkit.getOnlinePlayers()) {
-                people.hidePlayer(plugin, player);
+                people.hidePlayer(player);
             }
             return;
         }
@@ -36,7 +36,7 @@ public class VanishModule implements Listener {
             player.sendTitle("", Utils.Color("&fVanish Mode &7| &cOff"), 0, 50, 20);
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 10, 0);
             for (Player people : Bukkit.getOnlinePlayers()) {
-                people.showPlayer(plugin, player);
+                people.showPlayer(player);
             }
         }
     }
@@ -47,7 +47,7 @@ public class VanishModule implements Listener {
             player.sendTitle("", Utils.Color("&fVanish Mode &7| &aOn"), 0, 50, 20);
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 10, 1);
             for (Player people : Bukkit.getOnlinePlayers()) {
-                people.hidePlayer(plugin, player);
+                people.hidePlayer(player);
             }
         }
     }
@@ -58,7 +58,7 @@ public class VanishModule implements Listener {
             player.sendTitle("", Utils.Color("&fVanish Mode &7| &cOff"), 0, 50, 20);
             player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 10, 0);
             for (Player people : Bukkit.getOnlinePlayers()) {
-                people.showPlayer(plugin, player);
+                people.showPlayer(player);
             }
         }
     }
@@ -67,7 +67,7 @@ public class VanishModule implements Listener {
     public void playerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         for (int i = 0; i < Main.vanishlist.size(); i++) {
-            player.hidePlayer(plugin, Main.vanishlist.get(i));
+            player.hidePlayer(Main.vanishlist.get(i));
         }
     }
 }

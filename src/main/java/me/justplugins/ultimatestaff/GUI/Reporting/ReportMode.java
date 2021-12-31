@@ -21,7 +21,7 @@ public class ReportMode extends GUIBuilder {
 
     @Override
     public String Title() {
-        return Utils.Color("8Reporting > " + Report.ReportTarget().getDisplayName());
+        return Utils.Color("&8Reporting > " + Report.ReportTarget().getDisplayName());
     }
 
     @Override

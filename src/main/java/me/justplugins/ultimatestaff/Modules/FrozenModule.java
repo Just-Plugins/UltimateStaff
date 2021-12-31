@@ -34,7 +34,7 @@ public class FrozenModule implements Listener {
         user = Optional.of(UserDataManager.UserSearch(player.getUniqueId()).get());
 
         if(user.get().getUserFrozen()){
-            player.sendTitle(Utils.Color("&f&lYou have been Frozen!"), Utils.Color("&c&lPlease wait for staff"),0,999999999,1);
+            player.sendTitle(Utils.Color("&f&lYou have been Frozen!"), Utils.Color("&c&lPlease wait for staff"));
             Bukkit.broadcast(user.get().getPlayerName() + " has joined and is frozen because" + user.get().getUserFrozenReason(), Permissions.FREEZE.getPermission());
         }
     }
@@ -51,7 +51,7 @@ public class FrozenModule implements Listener {
 
         if (user.get().getUserFrozen()) {
             e.setCancelled(true);
-            player.sendTitle(Utils.Color("&f&lYou have been Frozen!"), Utils.Color("&c&lPlease wait for staff"),0,999999999,1);
+            player.sendTitle(Utils.Color("&f&lYou have been Frozen!"), Utils.Color("&c&lPlease wait for staff"));
         } else {
             e.setCancelled(false);
         }

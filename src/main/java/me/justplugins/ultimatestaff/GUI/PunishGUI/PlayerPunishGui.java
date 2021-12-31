@@ -169,7 +169,7 @@ class Stage3 extends GUIBuilder {
 
         setButton(13, GuiUtils.createButtonItem(getHead(PunishTarget.punishtarget()), Utils.Color("&l" + PunishTarget.punishtarget().getName()),Utils.Color(
                 "&9Punishing: &f" + PunishTarget.punishtarget().getName() +" \n" +
-                        "&9Reasons: &f" + reasons.toString() + "\n" +
+                        "&9Reasons: &f" + reasons + "\n" +
                         "&9Punish Type: &f" + punishType + "\n" +
                         "&9Duration: &f" + null + "\n"
         )), guiClickEvent -> {});

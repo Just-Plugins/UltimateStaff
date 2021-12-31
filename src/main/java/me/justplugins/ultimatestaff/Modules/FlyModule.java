@@ -2,6 +2,7 @@ package me.justplugins.ultimatestaff.Modules;
 
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Utils;
+import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,7 @@ public class FlyModule {
             player.setAllowFlight(!Main.flyinglist.contains(player));
 
             if (Main.flyinglist.contains(player)) {
-                player.sendTitle("", Utils.Color("&fFly &7| &cOff"), 0, 30, 20);
+                player.sendMessage(ChatMessageType.ACTION_BAR + Utils.Color("&fFly &7| &cOff"));
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 10, 0);
                 Main.flyinglist.remove(player);
                 player.setFlying(false);
@@ -26,7 +27,7 @@ public class FlyModule {
             }
 
             if (!Main.flyinglist.contains(player)) {
-                player.sendTitle("", Utils.Color("&fFly &7| &aOn"), 0, 30, 20);
+                player.sendMessage(ChatMessageType.ACTION_BAR + Utils.Color("&fFly &7| &aOn"));
                 player.playSound(player.getLocation(), Sound.BLOCK_NOTE_PLING, 10, 1);
                 Main.flyinglist.add(player);
                 player.setFlying(true);

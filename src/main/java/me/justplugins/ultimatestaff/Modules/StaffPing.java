@@ -6,7 +6,6 @@ import me.justplugins.ultimatestaff.Modules.Configs.UserData.userdata;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,7 +44,7 @@ public class StaffPing implements Listener {
                 user = UserDataManager.UserSearch(p.getUniqueId());
 
                 if (user.get().getNameNotify()) {
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BELL, SoundCategory.MASTER, 534647, 0);
+                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 534647, 0);
                     String lastColor = ChatColor.getLastColors(ce.getMessage());
                     ce.setMessage(ce.getMessage().replaceAll(player.getName(), ChatColor.GREEN + "" + ChatColor.BOLD + player.getName() + (lastColor.isEmpty() ? ChatColor.RESET : lastColor)));
                 }
