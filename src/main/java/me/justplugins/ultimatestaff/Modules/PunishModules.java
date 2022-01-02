@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -74,12 +75,12 @@ public class PunishModules implements Listener {
             for (Player pl : Bukkit.getOnlinePlayers()) {
                 if (pl.getAddress().getAddress().getHostAddress().equals(ip)) {
                     //.replace("{DURATION}",duration.toString())
-                    pl.kickPlayer(KickMessage("IPBanMessage").replace("{PUNISH-TYPE}","IpBan").replace("{REASON}",reason));
+                    pl.kickPlayer(KickMessage("IPBanMessage").replace("{REASON}",reason));
                 }
             }
 
             //.replace("{DURATION}",duration.toString())
-            target.kickPlayer(KickMessage("IPBanMessage").replace("{PUNISH-TYPE}","IpBan").replace("{REASON}",reason));
+            target.kickPlayer(KickMessage("IPBanMessage").replace("{REASON}",reason));
             player.sendMessage(Utils.Color(Utils.prefix() + "&fIP-Banned &l" + target.getName()));
         }
     }
@@ -194,21 +195,24 @@ public class PunishModules implements Listener {
 
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    public void onPlayerJoin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
-
-        //Check if player is IP-banned when joining kicks player
-        if (Bukkit.getIPBans().contains(player.toString())) {
-            String reason = Bukkit.getBanList(BanList.Type.IP).getBanEntry(player.toString()).getReason();
-            Date duration = Bukkit.getBanList(BanList.Type.IP).getBanEntry(player.toString()).getExpiration();
-            player.kickPlayer(KickMessage("IPBanMessage").replace("{PUNISH-TYPE}","IpBan").replace("{REASON}",reason).replace("{DURATION}",duration.toString()));
-        }
-
-        //Check if player is banned when joining kicks player
-        if (Bukkit.getBannedPlayers().contains(player)) {
-            String reason = Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.toString()).getReason();
-            Date duration = Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.toString()).getExpiration();
-            player.kickPlayer(KickMessage("BanMessage").replace("{PUNISH-TYPE}","Ban").replace("{REASON}",reason).replace("{DURATION}",duration.toString()));
+        if (event.getResult() == PlayerLoginEvent.Result.KICK_BANNED) {
+            if (Bukkit.getIPBans().contains(player.getName())) {
+                String reason = Bukkit.getBanList(BanList.Type.IP).getBanEntry(player.getName()).getReason();
+                String duration = "Permanent";
+                if (String.valueOf(Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getExpiration()) == null)
+                    duration = String.valueOf(Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getExpiration());
+                event.setKickMessage(KickMessage("IPBanMessage").replace("{REASON}",reason).replace("{DURATION}",duration));
+            }
+            if (Bukkit.getBannedPlayers().contains(player)) {
+                String reason = Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getReason();
+                String duration = "Permanent";
+                if (String.valueOf(Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getExpiration()) == null)
+                    duration = String.valueOf(Bukkit.getBanList(BanList.Type.NAME).getBanEntry(player.getName()).getExpiration());
+                event.setKickMessage(KickMessage("BanMessage").replace("{REASON}",reason).replace("{DURATION}",duration));
+            }
+            event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         }
     }
 

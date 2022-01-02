@@ -36,7 +36,6 @@ public class NoRuleBreakersEvent implements Listener {
 
             }
             CloudRuleBreakers play = plugin.getRuleBreaker(event.getPlayer().getName()).get();
-            return;
 
         }
     }
