@@ -18,7 +18,6 @@ public class ReportManager {
 
     private static ArrayList<Reports> ReportsList = new ArrayList<>();
 
-    @SuppressWarnings("UnusedReturnValue")
     public static Reports createReport(Player player, UUID playerUUID, int id, String reason, String proof, String date){
         Optional<Reports> u = ReportSearch(id);
         u.ifPresent(reports -> ReportsList.remove(reports));
@@ -47,7 +46,7 @@ public class ReportManager {
 
     public static void CloseReport(int id) {
         Optional<Reports> u = ReportSearch(id);
-        ReportsList.remove(u);
+        u.ifPresent(reports -> ReportsList.remove(reports));
         try {
             SaveReport();
         } catch (IOException e) {
@@ -59,12 +58,8 @@ public class ReportManager {
         return ReportsList.size();
     }
 
-    public static Optional<Reports> ReportSearch(int ID) {
-        return ReportsList.stream().filter(Reports -> Reports.equals(ID)).findFirst();
-    }
-
-    public static Optional<Reports> PlayerSearch(String player) {
-        return ReportsList.stream().filter(Reports -> Reports.equals(player)).findFirst();
+    public static Optional<Reports> ReportSearch(int id) {
+        return ReportsList.stream().filter(Reports -> Reports.getID() == id).findAny();
     }
 
     public static List<String> getPlayers() {

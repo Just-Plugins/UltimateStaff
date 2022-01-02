@@ -130,10 +130,14 @@ public final class Main extends JavaPlugin implements Listener {
 
 }
 
-//Todo: Close Report
 //Todo: add a notification of how many reports there are.. Reports.stream().count()
 //Todo: Cannot invoke "me.justplugins.ultimatestaff.Main.getDataFolder()" because "this.plugin" is null
 //Todo: All onlineplayers tabs need more pages when more players "also for the reports page"
 //Todo: PunishModules add duration feature
 //Todo: Everything form the config should be configurable in the gui
+//Todo: Mysql && Bungeecord support
+//Todo: Utils staffmessage send also to all bungee servers
+
+//misc - desing
+//Todo: add sound effects.
 

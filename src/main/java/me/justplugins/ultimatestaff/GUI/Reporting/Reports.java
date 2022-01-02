@@ -48,7 +48,8 @@ public class Reports extends GUIBuilder {
                 new PlayerPunishGui(plugin,player);
                 ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent1.slot));
             });
-            setAction(reports, ClickType.CONTROL_DROP, guiClickEvent1 -> {
+            setAction(reports, ClickType.DROP, guiClickEvent1 -> {
+                player.sendMessage(Utils.Color(Utils.prefix() + "&aReport closed!"));
                 ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent1.slot));
                 new Reports(plugin,player);
             });
@@ -63,7 +64,7 @@ public class Reports extends GUIBuilder {
                     Utils.Color("&cReport Date: &f" + ReportManager.getDates().get(reports)),
 
                     Utils.Color(""),
-                    Utils.Color("&7&oCTRL Q to Remove the report."),
+                    Utils.Color("&7&oQ to Remove the report."),
                     Utils.Color("&7&oLeft Click to Punish the player.")
             );
             reports++;

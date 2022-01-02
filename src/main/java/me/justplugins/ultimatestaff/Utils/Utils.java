@@ -1,9 +1,11 @@
 package me.justplugins.ultimatestaff.Utils;
 
 import me.justplugins.ultimatestaff.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -38,6 +40,15 @@ public class Utils implements Listener {
         skull.setOwner(player.getName());
         item.setItemMeta(skull);
         return item;
+    }
+
+
+    public static void SendStaffMessage(String message) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.hasPermission(Permissions.STAFF_MEMBER.getPermission())) {
+                player.sendMessage(Color(prefix() + "&f" + message));
+            }
+        }
     }
 
     /**
