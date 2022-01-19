@@ -1,29 +1,45 @@
 package me.justplugins.ultimatestaff.Commands;
 
+import com.songoda.core.commands.AbstractCommand;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.FlyModule;
 import me.justplugins.ultimatestaff.Utils.Permissions;
-import me.nathans212.baseplugin.CommandSystem.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Fly extends Command {
-    final Main plugin;
+import java.util.List;
 
+public class Fly extends AbstractCommand {
+    Main plugin;
     public Fly(Main plugin) {
-        super(plugin, "fly");
+        super(CommandType.PLAYER_ONLY, "fly");
         this.plugin = plugin;
     }
 
     @Override
-    public String Permission() {
+    protected ReturnType runCommand(CommandSender commandSender, String... strings) {
+        Player player = (Player) commandSender;
+        new FlyModule(plugin).FlyToggle(player);
+        return null;
+    }
+
+    @Override
+    protected List<String> onTab(CommandSender commandSender, String... strings) {
+        return null;
+    }
+
+    @Override
+    public String getPermissionNode() {
         return Permissions.FLY.getPermission();
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        Player player = (Player) sender;
-        new FlyModule(plugin).FlyToggle(player);
-        return false;
+    public String getSyntax() {
+        return "/fly";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Lets the player fly!";
     }
 }

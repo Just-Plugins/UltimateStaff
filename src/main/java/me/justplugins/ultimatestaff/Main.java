@@ -12,7 +12,6 @@ import me.justplugins.ultimatestaff.Modules.Configs.Reports.ReportManager;
 import me.justplugins.ultimatestaff.Modules.featch.NoRuleBreakersCloud.Cloud.CloudRuleBreakers;
 import me.justplugins.ultimatestaff.Modules.featch.NoRuleBreakersCloud.RuleBreakersManager;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.UserDataManager;
-import me.nathans212.baseplugin.ConsoleColors;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -36,7 +35,7 @@ public final class Main extends JavaPlugin implements Listener {
 
         long start = System.currentTimeMillis();
 
-        getLogger().log(Level.INFO, ConsoleColors.GREEN_BOLD);
+        getLogger().log(Level.INFO,""); //setColor
 
         getLogger().log(Level.INFO, "UltimateStaff || Loading...");
 
@@ -102,7 +101,7 @@ public final class Main extends JavaPlugin implements Listener {
         getLogger().log(Level.INFO, "UltimateStaff || Events Done!");
 
         getLogger().log(Level.INFO, "UltimateStaff || Successfully loaded in " + (System.currentTimeMillis() - start) + "ms");
-        getLogger().log(Level.INFO, "UltimateStaff || All Rights Reserved" + ConsoleColors.RESET);
+        getLogger().log(Level.INFO, "UltimateStaff || All Rights Reserved");
 
     }
 

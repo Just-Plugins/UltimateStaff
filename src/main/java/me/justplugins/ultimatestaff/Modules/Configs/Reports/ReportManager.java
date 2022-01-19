@@ -18,10 +18,10 @@ public class ReportManager {
 
     private static ArrayList<Reports> ReportsList = new ArrayList<>();
 
-    public static Reports createReport(Player player, UUID playerUUID, int id, String reason, String proof, String date){
+    public static Reports createReport(Player player, int id, String reason, String proof){
         Optional<Reports> u = ReportSearch(id);
         u.ifPresent(reports -> ReportsList.remove(reports));
-        Reports reports = new Reports(player.getDisplayName(), playerUUID, id, reason, proof, date);
+        Reports reports = new Reports(player, id, reason, proof);
         ReportsList.add(reports);
         try {
             SaveReport();

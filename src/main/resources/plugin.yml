@@ -1,6 +1,6 @@
 name: UltimateStaff
 version: @version@
-api-version: 1.12
+api-version: 1.13
 main: me.justplugins.ultimatestaff.Main
 authors: [ Nathan, D1TZ ]
 description: "A advanced staff and punishment plugin made by Justplugins"

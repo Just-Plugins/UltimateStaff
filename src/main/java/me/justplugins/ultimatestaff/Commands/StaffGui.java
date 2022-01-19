@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 public class StaffGui extends Command {
     final Main plugin;
     public StaffGui(Main plugin) {
-        super(plugin, "staffgui");
+        super(plugin, "staffmenu");
         this.plugin = plugin;
     }
 
