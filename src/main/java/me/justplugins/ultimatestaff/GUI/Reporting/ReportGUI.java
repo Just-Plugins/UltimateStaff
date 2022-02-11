@@ -35,8 +35,10 @@ public class ReportGUI extends Gui {
 
     public ReportGUI(Main plugin, Player player, Player target,Boolean withProof) {
         this.plugin = plugin;
-        setRows(5);
         setTitle(Utils.Color("&8Reporting > " + target.getName()));
+        setRows(5);
+        setDefaultItem(CompatibleMaterial.AIR.getItem());
+        setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
 
         for (String r : Config.Config.getStringList("Reports.Reasons")) {

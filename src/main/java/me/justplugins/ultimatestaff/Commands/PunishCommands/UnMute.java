@@ -1,40 +1,62 @@
 package me.justplugins.ultimatestaff.Commands.PunishCommands;
 
+import com.songoda.core.commands.AbstractCommand;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.PunishModules;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import me.nathans212.baseplugin.CommandSystem.Command;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class UnMute extends Command {
+import java.util.ArrayList;
+import java.util.List;
+
+public class UnMute extends AbstractCommand {
     final Main plugin;
     public UnMute(Main plugin) {
-        super(plugin, "unmute");
+        super(CommandType.CONSOLE_OK, "unmute");
         this.plugin = plugin;
     }
 
     @Override
-    public String Permission() {
+    protected ReturnType runCommand(CommandSender commandSender, String... strings) {
+        Player player = (Player) commandSender;
+
+        if (strings.length != 0) {
+
+            Player target = Bukkit.getServer().getPlayer(strings[0]);
+            //Ban player
+            PunishModules.unMute(player,target);
+            return ReturnType.SUCCESS;
+        } else {
+
+            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /unmute [player]"));
+            return ReturnType.SYNTAX_ERROR;
+        }
+    }
+
+    @Override
+    protected List<String> onTab(CommandSender commandSender, String... strings) {
+        ArrayList<String> players = new ArrayList<>();
+        for (Player pl : Bukkit.getOnlinePlayers()) {
+            players.add(pl.getName());
+            break;
+        }
+        return players;
+    }
+
+    @Override
+    public String getPermissionNode() {
         return null;
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        Player player = (Player) sender;
+    public String getSyntax() {
+        return "/unmute <Player>";
+    }
 
-        if (args.length != 0) {
-
-            Player target = Bukkit.getServer().getPlayer(args[0]);
-                //Ban player
-                PunishModules.unMute(player,target);
-
-        } else {
-
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /unmute [player]"));
-
-        }
-        return false;
+    @Override
+    public String getDescription() {
+        return "Unmutes a player";
     }
 }

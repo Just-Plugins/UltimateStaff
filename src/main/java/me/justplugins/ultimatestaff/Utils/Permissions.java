@@ -19,7 +19,7 @@ public enum Permissions {
 
     //Staff Permissions
     STAFFMODE("staffmode"),
-    STAFFGUI("staffgui"),
+    STAFFGUI("staffmenu"),
     STAFF_MEMBER("staffmember"),
     STAFF_CHAT("staffchat"),
     VANSIH("vanish"),
@@ -28,6 +28,7 @@ public enum Permissions {
     FREEZE("freeze"),
     PUNISHMENTS("punishments"),
     PUNISH_PLAYER("punish"),
+    REPORT("reports"),
 
     //Admin Permissions
     EDIT_PUNISH_TEMPLATES("edit.punishments"),

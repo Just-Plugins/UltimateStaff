@@ -1,6 +1,5 @@
 package me.justplugins.ultimatestaff.Events.Cheaters;
 
-import com.elikill58.negativity.spigot.listeners.PlayerCheatEvent;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.PostRequest;
 import org.bukkit.event.EventHandler;
@@ -15,8 +14,8 @@ public class Cheaters implements Listener {
         getServer().getPluginManager().registerEvents(this, plugin);
 
     }
-    @EventHandler
-    public void check(PlayerCheatEvent event ){
-        new PostRequest().logs(event.getPlayer(), event.getCheat().getName()+" "+event.getCheat().getReliabilityAlert());
-    }
+    //@EventHandler
+    //public void check(PlayerCheatEvent event ){
+    //    new PostRequest().logs(event.getPlayer(), event.getCheat().getName()+" "+event.getCheat().getReliabilityAlert());
+    //}
 }

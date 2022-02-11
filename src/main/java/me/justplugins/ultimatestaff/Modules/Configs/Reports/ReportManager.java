@@ -2,7 +2,15 @@ package me.justplugins.ultimatestaff.Modules.Configs.Reports;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.songoda.core.SongodaCore;
+import com.songoda.core.SongodaPlugin;
+import com.songoda.core.chat.ChatMessage;
+import com.songoda.core.chat.ColorCode;
+import com.songoda.core.locale.Message;
 import me.justplugins.ultimatestaff.Main;
+import me.justplugins.ultimatestaff.Utils.Permissions;
+import me.justplugins.ultimatestaff.Utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.*;
@@ -22,6 +30,11 @@ public class ReportManager {
         Optional<Reports> u = ReportSearch(id);
         u.ifPresent(reports -> ReportsList.remove(reports));
         Reports reports = new Reports(player, id, reason, proof);
+        for (Player pp: Bukkit.getOnlinePlayers()) {
+            if (pp.hasPermission(Permissions.STAFF_MEMBER.getPermission())) {
+                pp.sendMessage(Utils.prefix() + Utils.Color("There are " + ReportsList.size() + "open reports!"));
+            }
+        }
         ReportsList.add(reports);
         try {
             SaveReport();

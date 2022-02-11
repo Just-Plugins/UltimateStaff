@@ -22,10 +22,10 @@ public class UserDataManager {
 
     private static ArrayList<userdata> userdata = new ArrayList<>();
 
-    public void createUser(Player Player, Boolean NameNotify, Boolean SilentJoin, Boolean onDuty){
+    public void createUser(Player Player){
         Optional<userdata> u = UserSearch(Player.getUniqueId());
         u.ifPresent(value -> userdata.remove(value));
-        me.justplugins.ultimatestaff.Modules.Configs.UserData.userdata users = new userdata(Player.getDisplayName(), Player.getUniqueId(), NameNotify, SilentJoin, onDuty, false, "Null",  false, "Null");
+        userdata users = new userdata(Player.getDisplayName(), Player.getUniqueId(), false,false,false,false,"None",false,"None",false);
         userdata.add(users);
         try {
             SaveUserdata();
@@ -33,6 +33,7 @@ public class UserDataManager {
             e.printStackTrace();
         }
     }
+
     public void SaveUserdata() throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         File file = new File(plugin.getDataFolder().getAbsolutePath() + "/Userdata.json" );
@@ -73,6 +74,48 @@ public class UserDataManager {
 
         List<String> reason = reportsList.stream().map(me.justplugins.ultimatestaff.Modules.Configs.UserData.userdata::getPlayerName).collect(Collectors.toList());
         return reason;
+    }
+
+    public static void setMuted(Player player, Boolean setMuted, String reason) {
+        for (userdata user : userdata) {
+            if (user.getplayerUUID() == player.getUniqueId()) {
+                user.setMuted(setMuted);
+                user.setUserMutedReason(reason);
+            }
+        }
+    }
+
+    public static void setFrozen(Player player, Boolean setFrozen, String reason) {
+        for (userdata user : userdata) {
+            if (user.getplayerUUID() == player.getUniqueId()) {
+                user.setUserFrozen(setFrozen);
+                user.setUserFrozenReason(reason);
+            }
+        }
+    }
+
+    public static void setAFK(Player player, Boolean setAFK) {
+        for (userdata user : userdata) {
+            if (user.getplayerUUID() == player.getUniqueId()) user.setStaffAFK(setAFK);
+        }
+    }
+
+    public static void setNameNotify(Player player,Boolean setNameNotify) {
+        for (userdata user : userdata) {
+            if (user.getplayerUUID() == player.getUniqueId()) user.setNameNotify(setNameNotify);
+        }
+    }
+
+    public static void setOnDuty(Player player, Boolean setOnDuty) {
+        for (userdata user : userdata) {
+            if (user.getplayerUUID() == player.getUniqueId()) user.setOnDuty(setOnDuty);
+        }
+    }
+
+    public static void setSilentJoin(Player player,Boolean setSilentJoin) {
+        for (userdata user : userdata) {
+            if (user.getplayerUUID() == player.getUniqueId()) user.setSilentJoin(setSilentJoin);
+        }
     }
 
     public static Optional<userdata> UserSearch(UUID user) {

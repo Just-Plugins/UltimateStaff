@@ -1,6 +1,7 @@
 package me.justplugins.ultimatestaff.GUI.Reporting;
 
 import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.compatibility.CompatibleSound;
 import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiManager;
 import com.songoda.core.gui.GuiUtils;
@@ -22,16 +23,19 @@ public class ReportMode extends Gui {
     public ReportMode(Main plugin, Player player, Player target) {
         this.plugin = plugin;
         setTitle("Setting Reports");
+        setRows(6);
+        setDefaultItem(CompatibleMaterial.AIR.getItem());
+        setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
         setButton(4, GuiUtils.createButtonItem(getHead(target), Utils.Color("&l" + target)), guiClickEvent -> {
         });
 
         setButton(11, GuiUtils.createButtonItem(CompatibleMaterial.BOOK, Utils.Color("&a&lReport without Proof"), Utils.Color("&7Click to add Reasons")), guiClickEvent -> {
-            new ReportGUI(plugin, player,target,false);
+            new GuiManager(plugin).showGUI(player,new ReportGUI(plugin, player,target,false));
         });
 
         setButton(15, GuiUtils.createButtonItem(CompatibleMaterial.KNOWLEDGE_BOOK, Utils.Color("&a&lReport with Proof"), Utils.Color("&7Click to add Reasons and a link to a video\n&7 of proof that the player is hacking!")), guiClickEvent -> {
-            new ReportGUI(plugin, player,target,true);
+            new GuiManager(plugin).showGUI(player,new ReportGUI(plugin, player,target,true));
         });
 
     }

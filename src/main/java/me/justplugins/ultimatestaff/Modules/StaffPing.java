@@ -1,5 +1,6 @@
 package me.justplugins.ultimatestaff.Modules;
 
+import com.songoda.core.compatibility.CompatibleSound;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.UserDataManager;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.userdata;
@@ -44,7 +45,7 @@ public class StaffPing implements Listener {
                 user = UserDataManager.UserSearch(p.getUniqueId());
 
                 if (user.get().getNameNotify()) {
-                    p.playSound(p.getLocation(), Sound.BLOCK_NOTE_PLING, 534647, 0);
+                    p.playSound(p.getLocation(), CompatibleSound.BLOCK_NOTE_BLOCK_PLING.getSound(), 534647, 0);
                     String lastColor = ChatColor.getLastColors(ce.getMessage());
                     ce.setMessage(ce.getMessage().replaceAll(player.getName(), ChatColor.GREEN + "" + ChatColor.BOLD + player.getName() + (lastColor.isEmpty() ? ChatColor.RESET : lastColor)));
                 }

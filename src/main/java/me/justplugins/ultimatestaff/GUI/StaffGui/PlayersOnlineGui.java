@@ -1,40 +1,31 @@
 package me.justplugins.ultimatestaff.GUI.StaffGui;
 
+import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.compatibility.CompatibleSound;
+import com.songoda.core.gui.Gui;
+import com.songoda.core.gui.GuiManager;
+import com.songoda.core.gui.GuiUtils;
+import me.justplugins.ultimatestaff.GUI.Reporting.ReportMenu;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.InventoryModules;
 import me.justplugins.ultimatestaff.Utils.Permissions;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import me.nathans212.baseplugin.gui.GUIBuilder;
-import me.nathans212.baseplugin.gui.Gui;
-import me.nathans212.baseplugin.gui.GuiUtils;
-import me.nathans212.baseplugin.gui.compatibility.CompatibleMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
 import static me.justplugins.ultimatestaff.Utils.Utils.getHead;
 
-public class PlayersOnlineGui extends GUIBuilder {
+public class PlayersOnlineGui extends Gui {
     final Main plugin;
-    public PlayersOnlineGui(Main plugin, Player player) {
-        super(plugin, player);
-        this.plugin = plugin;
-    }
-
-    @Override
-    public String Title() {
-        return Utils.Color("&8StaffGui > Online Players");
-    }
-
-    @Override
-    public int Rows() {
-        return 6;
-    }
-
     int p;
+    public PlayersOnlineGui(Main plugin, Player player) {
+        this.plugin = plugin;
+        setTitle(Utils.Color("&8StaffGui > Online Players"));
+        setRows(6);
+        setDefaultItem(CompatibleMaterial.AIR.getItem());
+        setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
-    @Override
-    public void onOpen(Player player, Gui gui) {
         for (Player pl : Bukkit.getOnlinePlayers()) {
             if (p == 49) {
                 break;
@@ -61,10 +52,10 @@ public class PlayersOnlineGui extends GUIBuilder {
         }
 
         setButton(49, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, Utils.Color("&f&lGo Back"),Utils.Color("&7Click to go Back")), (event) -> {
-            new MainStaffGui(plugin, player);
+            new GuiManager(plugin).showGUI(player,new MainStaffGui(plugin, player));
         });
         setButton(53, GuiUtils.createButtonItem(CompatibleMaterial.JACK_O_LANTERN, Utils.Color("&9&lAll Players"), Utils.Color("&7&oClick to only see Staff")), guiClickEvent -> {
-            new StaffOnlineGui(plugin, player);
+            new GuiManager(plugin).showGUI(player,new StaffOnlineGui(plugin, player));
         });
     }
 }

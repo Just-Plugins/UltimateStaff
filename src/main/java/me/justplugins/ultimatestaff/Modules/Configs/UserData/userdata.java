@@ -5,14 +5,15 @@ import java.util.UUID;
 public class userdata {
     private String PlayerName, UserFrozenReason, UserMutedReason;
     private UUID playerUUID;
-    private Boolean NameNotify, SilentJoin, OnDuty, UserFrozen, Muted;
+    private Boolean NameNotify, SilentJoin, OnDuty, UserFrozen, Muted,StaffAFK;
 
-    public userdata(String PlayerName, UUID playerUUID , Boolean NameNotify , Boolean SilentJoin, Boolean OnDuty, Boolean Muted, String UserMutedReason, Boolean UserFrozen, String UserFrozenReason)
+    public userdata(String PlayerName, UUID playerUUID , Boolean NameNotify , Boolean SilentJoin, Boolean OnDuty, Boolean Muted, String UserMutedReason, Boolean UserFrozen, String UserFrozenReason,Boolean StaffAFK)
     {
         this.PlayerName = PlayerName;
         this.playerUUID = playerUUID;
         this.NameNotify = NameNotify;
         this.SilentJoin = SilentJoin;
+        this.StaffAFK = StaffAFK;
         this.OnDuty = OnDuty;
         this.UserFrozen = UserFrozen;
         this.UserFrozenReason = UserFrozenReason;
@@ -88,4 +89,11 @@ public class userdata {
         this.UserMutedReason = userMutedReason;
     }
 
+    public Boolean getStaffAFK() {
+        return this.StaffAFK;
+    }
+
+    public void setStaffAFK(Boolean staffAFK) {
+        StaffAFK = staffAFK;
+    }
 }

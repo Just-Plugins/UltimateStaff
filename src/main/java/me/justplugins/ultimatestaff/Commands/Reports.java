@@ -1,25 +1,46 @@
 package me.justplugins.ultimatestaff.Commands;
 
+import com.songoda.core.commands.AbstractCommand;
+import com.songoda.core.gui.GuiManager;
+import me.justplugins.ultimatestaff.GUI.Reporting.ReportMenu;
 import me.justplugins.ultimatestaff.Main;
-import me.nathans212.baseplugin.CommandSystem.Command;
+import me.justplugins.ultimatestaff.Utils.Permissions;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Reports extends Command {
-    final Main plugin;
+import java.util.List;
+
+public class Reports extends AbstractCommand {
+    Main plugin;
     public Reports(Main plugin) {
-        super(plugin,"reports");
+        super(CommandType.PLAYER_ONLY,"reports");
         this.plugin = plugin;
     }
 
     @Override
-    public String Permission() {
+    protected ReturnType runCommand(CommandSender commandSender, String... strings) {
+        Player player = (Player) commandSender;
+        new GuiManager(plugin).showGUI(player, new ReportMenu(plugin,null));
+        return ReturnType.SUCCESS;
+    }
+
+    @Override
+    protected List<String> onTab(CommandSender commandSender, String... strings) {
         return null;
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        new me.justplugins.ultimatestaff.GUI.Reporting.Reports(plugin, (Player) sender);
-        return false;
+    public String getPermissionNode() {
+        return Permissions.REPORT.getPermission();
+    }
+
+    @Override
+    public String getSyntax() {
+        return "/reports";
+    }
+
+    @Override
+    public String getDescription() {
+        return "Opens the reports list";
     }
 }

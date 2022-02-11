@@ -1,10 +1,16 @@
 package me.justplugins.ultimatestaff;
 
+import com.songoda.core.SongodaCore;
+import com.songoda.core.SongodaPlugin;
+import com.songoda.core.commands.AbstractCommand;
+import com.songoda.core.commands.CommandManager;
+import com.songoda.core.core.SongodaCoreCommand;
+import com.songoda.core.gui.GuiManager;
 import me.justplugins.ultimatestaff.Commands.*;
 import me.justplugins.ultimatestaff.Commands.PunishCommands.*;
 import me.justplugins.ultimatestaff.Events.BannedWords;
-import me.justplugins.ultimatestaff.Events.Cheaters.Cheaters;
 import me.justplugins.ultimatestaff.Events.AntiAdEvent;
+import me.justplugins.ultimatestaff.Events.Cheaters.Cheaters;
 import me.justplugins.ultimatestaff.Events.Cheaters.NoRuleBreakersEvent;
 import me.justplugins.ultimatestaff.Modules.*;
 import me.justplugins.ultimatestaff.Modules.Configs.*;
@@ -17,12 +23,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
 
-public final class Main extends JavaPlugin implements Listener {
+public final class Main extends JavaPlugin {
 
     //ArrayList
     public static final ArrayList<Player> vanishlist = new ArrayList<>();
@@ -52,33 +59,36 @@ public final class Main extends JavaPlugin implements Listener {
 
         // Cloud
         this.RuleBreakers = new RuleBreakersManager(this);
+        //new MySQLConnector(this,"",4535,"","","",true).connect(Connection::commit);
 
         getLogger().log(Level.INFO, "UltimateStaff || Fetching Done!");
 
         getLogger().log(Level.INFO, "UltimateStaff || Loading Commands...");
 
-        ////Commands
-        new MainCommand(this);
-        new StaffChat(this);
-        new Vanish(this);
-        new Fly(this);
-        new StaffGui(this);
-        new InvenSee(this);
-        new PunishTarget(this);
+        // Load Commands
+        CommandManager commandManager = new CommandManager(this);
+        commandManager.setNoConsoleMessage("UltimateStaff || You can't run this in the console!");
+        commandManager.addCommands(
+            new MainCommand(this),
+            new StaffChat(this),
+            new StaffGui(this),
+            new InvenSee(this),
+            new PunishTarget(this),
 
-        new Report(this);
-        new Reports(this);
+            new Report(this),
+            new Reports(this),
 
-        new Kick(this);
-        new Ban(this);
-        new IpBan(this);
-        new Freeze(this);
-        new Mute(this);
+            new Kick(this),
+            new Ban(this),
+            new IpBan(this),
+            new Freeze(this),
+            new Mute(this),
 
-        new UnBan(this);
-        new UnIpBan(this);
-        new UnFreeze(this);
-        new UnMute(this);
+            new UnBan(this),
+            new UnIpBan(this),
+            new UnFreeze(this),
+            new UnMute(this)
+        );
 
         getLogger().log(Level.INFO, "UltimateStaff || Commands Done!");
 
@@ -88,15 +98,11 @@ public final class Main extends JavaPlugin implements Listener {
         new AntiAdEvent(this);
         new NoRuleBreakersEvent(this);
         new Cheaters(this);
-        new VanishModule(this);
         new SilentJoinModule(this);
         new StaffPing(this);
         new BannedWords(this);
         new FrozenModule(this);
         new PunishModules(this);
-
-        getServer().getPluginManager().registerEvents(this, this);
-
 
         getLogger().log(Level.INFO, "UltimateStaff || Events Done!");
 
@@ -129,13 +135,13 @@ public final class Main extends JavaPlugin implements Listener {
 
 }
 
-//Todo: add a notification of how many reports there are.. Reports.stream().count()
 //Todo: Cannot invoke "me.justplugins.ultimatestaff.Main.getDataFolder()" because "this.plugin" is null
 //Todo: All onlineplayers tabs need more pages when more players "also for the reports page"
 //Todo: PunishModules add duration feature
 //Todo: Everything form the config should be configurable in the gui
 //Todo: Mysql && Bungeecord support
 //Todo: Utils staffmessage send also to all bungee servers
+//Todo: Fix the staff settings
 
 //misc - desing
 //Todo: add sound effects.

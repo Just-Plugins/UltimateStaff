@@ -1,15 +1,17 @@
 package me.justplugins.ultimatestaff.GUI.PunishGUI;
 
+import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.compatibility.CompatibleSound;
+import com.songoda.core.gui.Gui;
+import com.songoda.core.gui.GuiManager;
+import com.songoda.core.gui.GuiUtils;
+import me.justplugins.ultimatestaff.GUI.MainGui.MainGui;
 import me.justplugins.ultimatestaff.GUI.StaffGui.MainStaffGui;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.UserDataManager;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.userdata;
 import me.justplugins.ultimatestaff.Modules.PunishModules;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import me.nathans212.baseplugin.gui.GUIBuilder;
-import me.nathans212.baseplugin.gui.Gui;
-import me.nathans212.baseplugin.gui.GuiUtils;
-import me.nathans212.baseplugin.gui.compatibility.CompatibleMaterial;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -18,7 +20,7 @@ import org.bukkit.event.inventory.ClickType;
 
 import java.util.Optional;
 
-public class ActivePunishments extends GUIBuilder {
+public class ActivePunishments extends Gui {
     final Main plugin;
     static int state;
     private static Optional<userdata> user;
@@ -32,24 +34,15 @@ public class ActivePunishments extends GUIBuilder {
     }
 
     public ActivePunishments(Main plugin, Player player) {
-        super(plugin, player);
         this.plugin = plugin;
-    }
+        setTitle(Utils.Color("&8StaffGui > Active Punishments"));
+        setRows(6);
+        setDefaultItem(CompatibleMaterial.AIR.getItem());
+        setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
+        int p = 0;
+        String stateName;
 
-    @Override
-    public String Title() {
-        return Utils.Color("&8StaffGui > Active Punishments");
-    }
 
-    @Override
-    public int Rows() {
-        return 6;
-    }
-
-    int p;
-    String stateName;
-    @Override
-    public void onOpen(Player player, Gui gui) {
         switch(state) {
             case 0:
                 stateName = "&c&lBans Only";
@@ -70,14 +63,14 @@ public class ActivePunishments extends GUIBuilder {
                                     Utils.Color("&7&oRight Click to edit the punishment.")), ClickType.MIDDLE,
                             guiClickEvent -> {
                                 PunishModules.unBan(player,pl2);
-                                new ActivePunishments(plugin,player);
+                                new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
                                 setState(0);
                             });
                     p++;
                 }
                 setButton(53, GuiUtils.createButtonItem(CompatibleMaterial.IRON_AXE, Utils.Color(stateName), Utils.Color("&7&oClick")), guiClickEvent -> {
                     setState(1);
-                    new ActivePunishments(plugin,player);
+                    new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
                 });
                 break;
             case 1:
@@ -97,17 +90,17 @@ public class ActivePunishments extends GUIBuilder {
                                     Utils.Color(""),
                                     Utils.Color("&7&oMiddle Click to remove punishment"),
                                     Utils.Color("&7&oRight Click to edit the punishment.")
-                                    ), ClickType.MIDDLE,
+                            ), ClickType.MIDDLE,
                             guiClickEvent -> {
-                        PunishModules.unIpBan(player,pl);
-                        setState(1);
-                        new ActivePunishments(plugin,player);
-                    });
+                                PunishModules.unIpBan(player,pl);
+                                setState(1);
+                                new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
+                            });
                     p++;
                 }
                 setButton(53, GuiUtils.createButtonItem(CompatibleMaterial.DIAMOND_AXE, Utils.Color(stateName), Utils.Color("&7&oClick")), guiClickEvent -> {
                     setState(2);
-                    new ActivePunishments(plugin,player);
+                    new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
                 });
                 break;
             case 2:
@@ -126,33 +119,33 @@ public class ActivePunishments extends GUIBuilder {
                                     Utils.Color(""),
                                     Utils.Color("&7&oMiddle Click to remove punishment"),
                                     Utils.Color("&7&oRight Click to edit the punishment.")
-                                    ), ClickType.MIDDLE,
+                            ), ClickType.MIDDLE,
                             guiClickEvent -> {
                                 PunishModules.unMute(player,pl);
                                 setState(2);
-                                new ActivePunishments(plugin,player);
+                                new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
                             });
                     p++;
                 }
                 setButton(53, GuiUtils.createButtonItem(CompatibleMaterial.NOTE_BLOCK, Utils.Color(stateName), Utils.Color("&7&oClick")), guiClickEvent -> {
                     setState(3);
-                    new ActivePunishments(plugin,player);
+                    new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
                 });
                 break;
             case 3:
                 stateName = "&c&lAll Punishments";
                 setButton(53, GuiUtils.createButtonItem(CompatibleMaterial.CHEST, Utils.Color(stateName), Utils.Color("&7&oClick")), guiClickEvent -> {
                     setState(0);
-                    new ActivePunishments(plugin,player);
+                    new GuiManager(plugin).showGUI(player,new ActivePunishments(plugin, player));
                 });
                 break;
         }
 
-            //Go Back Button
-            setButton(49, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, Utils.Color("&f&lGo Back"),Utils.Color("&7Click to go Back")), (event) -> {
-                new MainStaffGui(plugin, player);
-            });
-        }
+        //Go Back Button
+        setButton(49, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, Utils.Color("&f&lGo Back"),Utils.Color("&7Click to go Back")), (event) -> {
+            new GuiManager(plugin).showGUI(player,new MainStaffGui(plugin, player));
+        });
     }
+}
 
 

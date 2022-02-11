@@ -5,9 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import org.apache.commons.io.IOUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import sun.misc.IOUtils;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -50,7 +50,7 @@ public class CloudDataFetcher extends Thread {
         try {
             current = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
-                    .create().fromJson(IOUtils.toString(new URL(FETCH_URL), StandardCharsets.UTF_8), new TypeToken<Map<String, CloudRuleBreakers>>() {
+                    .create().fromJson(new URL(FETCH_URL).toString(), new TypeToken<Map<String, CloudRuleBreakers>>() {
                     }.getType());
             online = true;
             PlayerCheck();

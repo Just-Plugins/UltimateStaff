@@ -1,39 +1,26 @@
 package me.justplugins.ultimatestaff.GUI.MainGui;
 
+import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.compatibility.CompatibleSound;
+import com.songoda.core.gui.Gui;
+import com.songoda.core.gui.GuiManager;
+import com.songoda.core.gui.GuiUtils;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import me.nathans212.baseplugin.gui.GUIBuilder;
-import me.nathans212.baseplugin.gui.Gui;
-import me.nathans212.baseplugin.gui.GuiUtils;
-import me.nathans212.baseplugin.gui.compatibility.CompatibleMaterial;
 import org.bukkit.entity.Player;
 
-public class ModulesGUI extends GUIBuilder {
+public class ModulesGUI extends Gui {
     final Main plugin;
     public ModulesGUI(Main plugin, Player player) {
-        super(plugin, player);
         this.plugin = plugin;
-    }
-
-    @Override
-    public String Title() {
-        return Utils.Color("&8UltimateStaff > Modules");
-    }
-
-    @Override
-    public int Rows() {
-        return 5;
-    }
-
-    @Override
-    public void onOpen(Player player, Gui gui) {
-
-
-
+        setTitle(Utils.Color("&8UltimateStaff > Modules"));
+        setRows(5);
+        setDefaultItem(CompatibleMaterial.AIR.getItem());
+        setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
         //Go Back Button
-        setButton(40, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, Utils.Color("&f&lGo Back"),Utils.Color("&7Click to go Back")), (event) -> {
-            new MainGui(plugin, player);
+        setButton(40, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, Utils.Color("&f&lGo Back"), Utils.Color("&7Click to go Back")), (event) -> {
+            new GuiManager(plugin).showGUI(player,new MainGui(plugin, player));
         });
     }
 }

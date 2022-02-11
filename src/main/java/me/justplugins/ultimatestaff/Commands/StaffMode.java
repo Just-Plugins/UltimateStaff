@@ -1,27 +1,42 @@
 package me.justplugins.ultimatestaff.Commands;
 
+import com.songoda.core.commands.AbstractCommand;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Permissions;
-import me.nathans212.baseplugin.CommandSystem.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class StaffMode extends Command {
+import java.util.List;
+
+public class StaffMode extends AbstractCommand {
     final Main plugin;
     public StaffMode(Main plugin) {
-        super(plugin, "staffmode");
+        super(CommandType.PLAYER_ONLY, "staffmode");
         this.plugin = plugin;
     }
 
     @Override
-    public String Permission() {
+    protected ReturnType runCommand(CommandSender commandSender, String... strings) {
+        return null;
+    }
+
+    @Override
+    protected List<String> onTab(CommandSender commandSender, String... strings) {
+        return null;
+    }
+
+    @Override
+    public String getPermissionNode() {
         return Permissions.STAFFMODE.getPermission();
     }
 
     @Override
-    public boolean execute(CommandSender sender, String commandLabel, String[] args) {
-        Player p = (Player) sender;
+    public String getSyntax() {
+        return "staffmode";
+    }
 
-        return false;
+    @Override
+    public String getDescription() {
+        return "Set the player into Staff Mode";
     }
 }

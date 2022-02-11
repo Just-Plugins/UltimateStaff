@@ -1,6 +1,7 @@
 package me.justplugins.ultimatestaff.Commands;
 
 import com.songoda.core.commands.AbstractCommand;
+import com.songoda.core.gui.GuiManager;
 import me.justplugins.ultimatestaff.GUI.Reporting.ReportMode;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Permissions;
@@ -15,7 +16,7 @@ import java.util.List;
 public class Report extends AbstractCommand {
     Main plugin;
     public Report(Main plugin) {
-        super(CommandType.PLAYER_ONLY,true,"report");
+        super(CommandType.PLAYER_ONLY,"report");
         this.plugin = plugin;
     }
 
@@ -25,7 +26,7 @@ public class Report extends AbstractCommand {
 
         if (strings.length > 0) {
             if (Bukkit.getServer().getPlayer(strings[0]) != null) {
-                new ReportMode(plugin, player,Bukkit.getServer().getPlayer(strings[0]));
+                new GuiManager(plugin).showGUI(player,new ReportMode(plugin, player,Bukkit.getServer().getPlayer(strings[0])));
                 return ReturnType.SUCCESS;
             } else {
                 player.sendMessage(Utils.prefix() + Utils.Color("&cThat username does not exist, or the user is not online!"));

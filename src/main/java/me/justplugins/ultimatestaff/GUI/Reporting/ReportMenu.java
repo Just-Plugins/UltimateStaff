@@ -1,57 +1,48 @@
 package me.justplugins.ultimatestaff.GUI.Reporting;
 
+
+import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.compatibility.CompatibleSound;
+import com.songoda.core.gui.Gui;
+import com.songoda.core.gui.GuiManager;
+import com.songoda.core.gui.GuiUtils;
 import me.justplugins.ultimatestaff.Commands.PunishCommands.PunishTarget;
 import me.justplugins.ultimatestaff.GUI.PunishGUI.PlayerPunishGui;
 import me.justplugins.ultimatestaff.GUI.StaffGui.MainStaffGui;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.Configs.Reports.ReportManager;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import me.nathans212.baseplugin.gui.GUIBuilder;
-import me.nathans212.baseplugin.gui.Gui;
-import me.nathans212.baseplugin.gui.GuiUtils;
-import me.nathans212.baseplugin.gui.compatibility.CompatibleMaterial;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
-public class Reports extends GUIBuilder {
-    final Main plugin;
+import java.util.Objects;
+
+public class ReportMenu extends Gui {
+    Main plugin;
     int reports;
 
-    public Reports(Main plugin, Player player) {
-        super(plugin, player);
+    public ReportMenu(Main plugin,Player player) {
         this.plugin = plugin;
-    }
+        setTitle(Utils.Color("&8StaffMenu > Reports"));
+        setRows(6);
+        setDefaultItem(CompatibleMaterial.AIR.getItem());
+        setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
-    @Override
-    public String Title() {
-        return Utils.Color("&8StaffGui > Reports");
-    }
-
-    @Override
-    public int Rows() {
-        return 6;
-    }
-
-    @Override
-    public void onOpen(Player player, Gui gui) {
         for (String a : ReportManager.getPlayers()) {
-            if (reports == 49) {
-                break;
-            }
+            if (reports == 49) break;
             Player pl = Bukkit.getPlayer(ReportManager.getPlayers().get(reports));
 
             setButton(reports, GuiUtils.createButtonItem(Utils.getHead(pl), Utils.Color("&r&l" + pl.getDisplayName()),""), guiClickEvent -> {});
 
-            setAction(reports, ClickType.LEFT, guiClickEvent1 -> {
-                PunishTarget.setPunishTarget(pl);
-                new PlayerPunishGui(plugin,player);
-                ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent1.slot));
+            setAction(reports, ClickType.LEFT, guiClickEvent -> {
+                new GuiManager(plugin).showGUI(player,new PlayerPunishGui(plugin,player,Objects.requireNonNull(Bukkit.getPlayer(ReportManager.getPlayers().get(guiClickEvent.slot)))));
+                ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent.slot));
             });
-            setAction(reports, ClickType.DROP, guiClickEvent1 -> {
+            setAction(reports, ClickType.DROP, guiClickEvent -> {
                 player.sendMessage(Utils.Color(Utils.prefix() + "&aReport closed!"));
-                ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent1.slot));
-                new Reports(plugin,player);
+                ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent.slot));
+                new GuiManager(plugin).showGUI(player,new ReportMenu(plugin, player));
             });
 
             updateItemLore(reports,
@@ -72,7 +63,7 @@ public class Reports extends GUIBuilder {
 
         //Go Back Button
         setButton(49, GuiUtils.createButtonItem(CompatibleMaterial.ARROW, Utils.Color("&f&lGo Back"),Utils.Color("&7Click to go Back")), (event) -> {
-            new MainStaffGui(plugin, player);
+            new GuiManager(plugin).showGUI(player,new MainStaffGui(plugin, player));
         });
         setButton(53, GuiUtils.createButtonItem(CompatibleMaterial.COMPASS, Utils.Color("&9&lSearch Player"), Utils.Color("&7&oClick to search with Report ID")), guiClickEvent -> {
             player.sendMessage("Not Setted up yet!");

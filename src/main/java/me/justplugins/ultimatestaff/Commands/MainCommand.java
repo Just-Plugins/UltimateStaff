@@ -1,6 +1,8 @@
 package me.justplugins.ultimatestaff.Commands;
 
 import com.songoda.core.commands.AbstractCommand;
+import com.songoda.core.gui.Gui;
+import com.songoda.core.gui.GuiManager;
 import me.justplugins.ultimatestaff.GUI.MainGui.MainGui;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Permissions;
@@ -12,15 +14,15 @@ import java.util.List;
 public class MainCommand extends AbstractCommand {
     Main plugin;
     public MainCommand(Main plugin) {
-        super(CommandType.PLAYER_ONLY,true,"ultimatestaff");
+        super(CommandType.PLAYER_ONLY,"ultimatestaff","ustaff");
         this.plugin = plugin;
     }
 
     @Override
     protected ReturnType runCommand(CommandSender commandSender, String... strings) {
         Player player = (Player) commandSender;
-        new MainGui(plugin,player);
-        return null;
+        new GuiManager(plugin).showGUI(player,new MainGui(plugin,player));
+        return ReturnType.SUCCESS;
     }
 
     @Override

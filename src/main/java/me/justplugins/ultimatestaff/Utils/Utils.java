@@ -1,5 +1,7 @@
 package me.justplugins.ultimatestaff.Utils;
 
+import com.songoda.core.compatibility.CompatibleMaterial;
+import com.songoda.core.locale.Message;
 import me.justplugins.ultimatestaff.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,7 +34,7 @@ public class Utils implements Listener {
 
 
     public static ItemStack getHead(OfflinePlayer player) {
-        ItemStack item = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        ItemStack item = new ItemStack(CompatibleMaterial.PLAYER_HEAD.getMaterial(), 1, (short) 3);
         SkullMeta skull = (SkullMeta) item.getItemMeta();
         skull.setDisplayName(player.getName());
         ArrayList<String> lore = new ArrayList<String>();
@@ -41,6 +43,7 @@ public class Utils implements Listener {
         item.setItemMeta(skull);
         return item;
     }
+
 
 
     public static void SendStaffMessage(String message) {

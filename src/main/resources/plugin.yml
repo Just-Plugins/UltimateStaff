@@ -3,4 +3,50 @@ version: @version@
 api-version: 1.13
 main: me.justplugins.ultimatestaff.Main
 authors: [ Nathan, D1TZ ]
+website: justplugins.xyz
 description: "A advanced staff and punishment plugin made by Justplugins"
+
+commands:
+  InvenSee:
+    description: "Looks into a players inventory"
+  UltimateStaff:
+    description: "The main command"
+    aliases:
+      - "ustaff"
+  Report:
+    description: "Reports a player"
+  Reports:
+    description: "Opens the Active Reports menu"
+  StaffChat:
+    description: "Types in the StaffChat"
+    aliases:
+      - "sc"
+  StaffMenu:
+    description: "Opens the StaffMenu"
+  StaffMode:
+    description: "Sets the player into StaffMode"
+
+
+  #Punish Commands
+  Ban:
+    description: "Bans a target"
+  UnBan:
+    description: "Unbans a target"
+  IpBan:
+    description: "Ip-Bans a target"
+  UnIpBan:
+    description: "UnIp-Bans a target"
+  Mute:
+    description: "Mutes a target"
+  UnMute:
+    description: "UnMutes a target"
+  Kick:
+    description: "Kicks a target"
+  Punish:
+    description: "Punishes a target"
+    aliases:
+      - "pun"
+  Freeze:
+    description: "Freezes a target"
+  UnFreeze:
+    description: "UnFreezes a target"

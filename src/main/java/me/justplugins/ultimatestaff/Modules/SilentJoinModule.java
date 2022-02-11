@@ -28,13 +28,12 @@ public class SilentJoinModule implements Listener {
 
         user = UserDataManager.UserSearch(player.getUniqueId());
         if(!user.isPresent()){
-            new UserDataManager(plugin).createUser(player,false,false, false);
+            new UserDataManager(plugin).createUser(player);
             user = Optional.of(UserDataManager.UserSearch(player.getUniqueId()).get());
         }
 
         if (user.get().getSilentJoin()) {
             event.setJoinMessage("");
-            return;
         }
     }
     @EventHandler
@@ -43,13 +42,12 @@ public class SilentJoinModule implements Listener {
 
         user = UserDataManager.UserSearch(player.getUniqueId());
         if(!user.isPresent()){
-            new UserDataManager(plugin).createUser(player,false,false, false);
+            new UserDataManager(plugin).createUser(player);
             user = Optional.of(UserDataManager.UserSearch(player.getUniqueId()).get());
         }
 
         if (user.get().getSilentJoin()) {
             event.setQuitMessage("");
-            return;
         }
     }
 }

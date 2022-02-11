@@ -3,7 +3,7 @@ package me.justplugins.ultimatestaff.Modules.featch.domains.cloud;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
-import org.apache.commons.io.IOUtils;
+import sun.misc.IOUtils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +21,7 @@ public class CloudDataFetcher extends Thread {
     public static LinkedTreeMap<String, CloudDomains> domains() throws IOException {
         return new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
-                .create().fromJson(IOUtils.toString(new URL(FETCH_URL), StandardCharsets.UTF_8), new TypeToken<Map<String, CloudDomains>>() {
+                .create().fromJson(new URL(FETCH_URL).toString(), new TypeToken<Map<String, CloudDomains>>() {
                 }.getType());
     }
     public List<CloudDomains> getCurrent() {
