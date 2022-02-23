@@ -27,7 +27,7 @@ public class PunishTarget extends AbstractCommand {
         if (strings.length > 0) {
             Player target = Bukkit.getServer().getPlayer(strings[0]);
             if (target != null) {
-                new GuiManager(plugin).showGUI(player,new PlayerPunishGui(plugin,player,target));
+                new GuiManager(plugin).showGUI(player,new PlayerPunishGui(plugin,player,target,null));
                 return ReturnType.SUCCESS;
             } else {
                 player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));

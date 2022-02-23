@@ -34,9 +34,8 @@ public class Report extends AbstractCommand {
             }
         } else {
             player.sendMessage(Utils.Color(Utils.prefix() + "&fUse " + ReturnType.SYNTAX_ERROR));
+            return ReturnType.FAILURE;
         }
-
-        return ReturnType.FAILURE;
     }
 
     @Override

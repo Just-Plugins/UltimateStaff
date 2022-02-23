@@ -30,11 +30,6 @@ public class ReportManager {
         Optional<Reports> u = ReportSearch(id);
         u.ifPresent(reports -> ReportsList.remove(reports));
         Reports reports = new Reports(player, id, reason, proof);
-        for (Player pp: Bukkit.getOnlinePlayers()) {
-            if (pp.hasPermission(Permissions.STAFF_MEMBER.getPermission())) {
-                pp.sendMessage(Utils.prefix() + Utils.Color("There are " + ReportsList.size() + "open reports!"));
-            }
-        }
         ReportsList.add(reports);
         try {
             SaveReport();

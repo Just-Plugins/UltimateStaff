@@ -6,7 +6,6 @@ import com.songoda.core.compatibility.CompatibleSound;
 import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiManager;
 import com.songoda.core.gui.GuiUtils;
-import me.justplugins.ultimatestaff.Commands.PunishCommands.PunishTarget;
 import me.justplugins.ultimatestaff.GUI.PunishGUI.PlayerPunishGui;
 import me.justplugins.ultimatestaff.GUI.StaffGui.MainStaffGui;
 import me.justplugins.ultimatestaff.Main;
@@ -16,13 +15,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
+import java.util.Collections;
 import java.util.Objects;
 
-public class ReportMenu extends Gui {
+public class ActiveReportsGUI extends Gui {
     Main plugin;
     int reports;
 
-    public ReportMenu(Main plugin,Player player) {
+    public ActiveReportsGUI(Main plugin, Player player) {
         this.plugin = plugin;
         setTitle(Utils.Color("&8StaffMenu > Reports"));
         setRows(6);
@@ -36,13 +36,14 @@ public class ReportMenu extends Gui {
             setButton(reports, GuiUtils.createButtonItem(Utils.getHead(pl), Utils.Color("&r&l" + pl.getDisplayName()),""), guiClickEvent -> {});
 
             setAction(reports, ClickType.LEFT, guiClickEvent -> {
-                new GuiManager(plugin).showGUI(player,new PlayerPunishGui(plugin,player,Objects.requireNonNull(Bukkit.getPlayer(ReportManager.getPlayers().get(guiClickEvent.slot)))));
+                Player target = Bukkit.getPlayer(ReportManager.getPlayers().get(guiClickEvent.slot));
+                new GuiManager(plugin).showGUI(player,new PlayerPunishGui(plugin,player,target, Collections.singletonList(ReportManager.ReportSearch(ReportManager.getIDs().get(guiClickEvent.slot)).get().getReason())));
                 ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent.slot));
             });
             setAction(reports, ClickType.DROP, guiClickEvent -> {
                 player.sendMessage(Utils.Color(Utils.prefix() + "&aReport closed!"));
                 ReportManager.CloseReport(ReportManager.getIDs().get(guiClickEvent.slot));
-                new GuiManager(plugin).showGUI(player,new ReportMenu(plugin, player));
+                new GuiManager(plugin).showGUI(player,new ActiveReportsGUI(plugin, player));
             });
 
             updateItemLore(reports,

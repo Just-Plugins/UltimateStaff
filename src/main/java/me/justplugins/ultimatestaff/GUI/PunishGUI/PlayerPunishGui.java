@@ -9,11 +9,17 @@ import me.justplugins.ultimatestaff.Main;
 
 import me.justplugins.ultimatestaff.Modules.Configs.Config;
 import me.justplugins.ultimatestaff.Modules.PunishModules;
+import me.justplugins.ultimatestaff.Utils.PunishTypes;
 import me.justplugins.ultimatestaff.Utils.Utils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
+import java.sql.Time;
+import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static me.justplugins.ultimatestaff.Utils.Utils.getHead;
 
@@ -21,59 +27,113 @@ public class PlayerPunishGui extends Gui {
     final Main plugin;
     int p;
     Player player;
-    static final ArrayList<String> reasons = new ArrayList<>();
+    List<String> reasons;
+    PunishTypes punishType;
+    Time duration;
 
-    public PlayerPunishGui(Main plugin,Player player, Player target) {
+    public PlayerPunishGui(Main plugin,Player player, Player target, @Nullable List<String> reasons) {
         this.player = player;
         this.plugin = plugin;
+        if (reasons != null) this.reasons = reasons;
+
+        System.out.println(Arrays.toString(reasons.toArray()));
+
         setTitle(Utils.Color("&8Punishing > " + target.getName()));
-        setRows(6);
+        setRows(4);
         setDefaultItem(CompatibleMaterial.AIR.getItem());
         setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
-        reasons.clear();
-        for (String r : Config.Config.getStringList("Punishments.Reasons")) {
-            if (p == 44) {
-                break;
-            }
-            setButton(p, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, Utils.Color("&l" + Utils.Color("&c&l" + Config.Config.getStringList("Punishments.Reasons").get(p)))), guiClickEvent -> {
+        setButton(11,GuiUtils.createButtonItem(CompatibleMaterial.DIAMOND_AXE,Utils.Color("&7&lPunish Type"),Utils.Color("")),guiClickEvent -> {
 
-                if (!reasons.contains(Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot))) {
-                    reasons.add(Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot));
-                    updateItem(guiClickEvent.slot,CompatibleMaterial.WRITTEN_BOOK, Utils.Color("&a&l" + Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot)));
-                    updateItemLore(48,Utils.Color(
-                            "&9Punishing: &f" + target.getName() +" \n" +
-                                    "&9Reasons: &f" + reasons.toString() + "\n" +
-                                    "&9Punish Type: &f" + null + "\n" +
-                                    "&9Duration: &f" + null + "\n" ));
-                } else {
-                    reasons.remove(Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot));
-                    updateItem(guiClickEvent.slot,CompatibleMaterial.PAPER,Utils.Color("&c&l" + Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot)));
-                    updateItemLore(48,Utils.Color(
-                            "&9Punishing: &f" + target.getName() +" \n" +
-                                    "&9Reasons: &f" + reasons.toString() + "\n" +
-                                    "&9Punish Type: &f" + null + "\n" +
-                                    "&9Duration: &f" + null + "\n" ));
-                }
-            });
-            p++;
-        }
-
-
-        setButton(48, GuiUtils.createButtonItem(getHead(target),
-                        Utils.Color("&l" + target.getName()),
-                        Utils.Color("&9Punishing: &f" + target.getName() +" \n" +
-                                "&9Reasons: &f[]" + "\n" +
-                                "&9Punish Type: &f" + null + "\n" +
-                                "&9Duration: &f" + null + "\n")),
-                guiClickEvent -> {});
-
-        setButton(50, GuiUtils.createButtonItem(CompatibleMaterial.EMERALD_BLOCK, Utils.Color("&a&lDone!"), Utils.Color("&7&oClick when you are\n&7&odone selecting reasons.")), guiClickEvent -> {
-            player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100,1);
-            //page 2
         });
+
+        setButton(13,GuiUtils.createButtonItem(CompatibleMaterial.PAPER,Utils.Color("&7&lReasons"),Utils.Color("")),guiClickEvent -> {
+
+        });
+
+        setButton(15,GuiUtils.createButtonItem(CompatibleMaterial.CLOCK,Utils.Color("&7&lPunish Duration"),Utils.Color("")),guiClickEvent -> {
+
+        });
+
+        setButton(30,GuiUtils.createButtonItem(Utils.getHead(target),Utils.Color("&f&l" + target.getDisplayName()),Utils.Color("")),guiClickEvent -> {
+
+        });
+
+        setButton(32,GuiUtils.createButtonItem(CompatibleMaterial.DIAMOND_AXE,Utils.Color("&a&lDone"),Utils.Color("target.getName()")),guiClickEvent -> {
+
+        });
+
+        updateItemLore(30,Utils.Color(
+              "&9Punishing: &f" + target.getName() +" \n" +
+              "&9Reasons: &f" + reasons + "\n" +
+              "&9Punish Type: &f" + punishType + "\n" +
+              "&9Duration: &f" + duration + "\n" )
+        );
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        reasons.clear();
+//                for (String r : Config.Config.getStringList("Punishments.Reasons")) {
+//                if (p == 44) {
+//                break;
+//                }
+//                setButton(p, GuiUtils.createButtonItem(CompatibleMaterial.PAPER, Utils.Color("&l" + Utils.Color("&c&l" + Config.Config.getStringList("Punishments.Reasons").get(p)))), guiClickEvent -> {
+//
+//                if (!reasons.contains(Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot))) {
+//                reasons.add(Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot));
+//                updateItem(guiClickEvent.slot,CompatibleMaterial.WRITTEN_BOOK, Utils.Color("&a&l" + Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot)));
+//                updateItemLore(48,Utils.Color(
+//                "&9Punishing: &f" + target.getName() +" \n" +
+//                "&9Reasons: &f" + reasons.toString() + "\n" +
+//                "&9Punish Type: &f" + null + "\n" +
+//                "&9Duration: &f" + null + "\n" ));
+//                } else {
+//                reasons.remove(Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot));
+//                updateItem(guiClickEvent.slot,CompatibleMaterial.PAPER,Utils.Color("&c&l" + Config.Config.getStringList("Punishments.Reasons").get(guiClickEvent.slot)));
+//                updateItemLore(48,Utils.Color(
+//                "&9Punishing: &f" + target.getName() +" \n" +
+//                "&9Reasons: &f" + reasons.toString() + "\n" +
+//                "&9Punish Type: &f" + null + "\n" +
+//                "&9Duration: &f" + null + "\n" ));
+//                }
+//                });
+//                p++;
+//                }
+//
+//
+//                setButton(48, GuiUtils.createButtonItem(getHead(target),
+//                Utils.Color("&l" + target.getName()),
+//                Utils.Color("&9Punishing: &f" + target.getName() +" \n" +
+//                "&9Reasons: &f[]" + "\n" +
+//                "&9Punish Type: &f" + null + "\n" +
+//                "&9Duration: &f" + null + "\n")),
+//                guiClickEvent -> {});
+//
+//                setButton(50, GuiUtils.createButtonItem(CompatibleMaterial.EMERALD_BLOCK, Utils.Color("&a&lDone!"), Utils.Color("&7&oClick when you are\n&7&odone selecting reasons.")), guiClickEvent -> {
+//                player.playSound(player.getLocation(), Sound.ENTITY_CHICKEN_EGG, 100,1);
+//                //page 2
+//                });
 
 
 //// Stage 2 of the punishment action

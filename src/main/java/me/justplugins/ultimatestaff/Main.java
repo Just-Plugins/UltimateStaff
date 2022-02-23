@@ -18,6 +18,7 @@ import me.justplugins.ultimatestaff.Modules.Configs.Reports.ReportManager;
 import me.justplugins.ultimatestaff.Modules.featch.NoRuleBreakersCloud.Cloud.CloudRuleBreakers;
 import me.justplugins.ultimatestaff.Modules.featch.NoRuleBreakersCloud.RuleBreakersManager;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.UserDataManager;
+import me.justplugins.ultimatestaff.Utils.ConsoleColors;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -31,10 +32,6 @@ import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
 
-    //ArrayList
-    public static final ArrayList<Player> vanishlist = new ArrayList<>();
-    public static final ArrayList<Player> flyinglist = new ArrayList<>();
-
     public RuleBreakersManager RuleBreakers;
 
     @Override
@@ -44,55 +41,53 @@ public final class Main extends JavaPlugin {
 
         getLogger().log(Level.INFO,""); //setColor
 
-        getLogger().log(Level.INFO, "UltimateStaff || Loading...");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Loading..." + ConsoleColors.RESET);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Loading Configs...");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Loading Configs..." + ConsoleColors.RESET);
 
         //Configs
         new UserDataManager(this);
         new ReportManager(this);
         new Config(this); // The main config for the plugin
 
-        getLogger().log(Level.INFO, "UltimateStaff || Configs Done!");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Configs Done!" + ConsoleColors.RESET);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Fetching data from the cloud...");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Fetching data from the cloud..." + ConsoleColors.RESET);
 
         // Cloud
         this.RuleBreakers = new RuleBreakersManager(this);
         //new MySQLConnector(this,"",4535,"","","",true).connect(Connection::commit);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Fetching Done!");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Fetching Done!" + ConsoleColors.RESET);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Loading Commands...");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Loading Commands..." + ConsoleColors.RESET);
 
         // Load Commands
         CommandManager commandManager = new CommandManager(this);
-        commandManager.setNoConsoleMessage("UltimateStaff || You can't run this in the console!");
-        commandManager.addCommands(
-            new MainCommand(this),
-            new StaffChat(this),
-            new StaffGui(this),
-            new InvenSee(this),
-            new PunishTarget(this),
+        commandManager.setNoConsoleMessage(ConsoleColors.RED_BOLD +"UltimateStaff || You can't run this in the console!" + ConsoleColors.RESET);
+        commandManager.registerCommandDynamically(new MainCommand(this));
+        commandManager.registerCommandDynamically(new StaffChat(this));
+        commandManager.registerCommandDynamically(new StaffGui(this));
+        commandManager.registerCommandDynamically(new InvenSee(this));
 
-            new Report(this),
-            new Reports(this),
+        commandManager.registerCommandDynamically(new PunishTarget(this));
+        commandManager.registerCommandDynamically(new Report(this));
+        commandManager.registerCommandDynamically(new Reports(this));
 
-            new Kick(this),
-            new Ban(this),
-            new IpBan(this),
-            new Freeze(this),
-            new Mute(this),
+        commandManager.registerCommandDynamically(new Kick(this));
+        commandManager.registerCommandDynamically(new Ban(this));
+        commandManager.registerCommandDynamically(new IpBan(this));
+        commandManager.registerCommandDynamically(new Freeze(this));
+        commandManager.registerCommandDynamically(new Mute(this));
 
-            new UnBan(this),
-            new UnIpBan(this),
-            new UnFreeze(this),
-            new UnMute(this)
-        );
+        commandManager.registerCommandDynamically(new UnBan(this));
+        commandManager.registerCommandDynamically(new UnIpBan(this));
+        commandManager.registerCommandDynamically(new UnFreeze(this));
+        commandManager.registerCommandDynamically(new UnMute(this));
 
-        getLogger().log(Level.INFO, "UltimateStaff || Commands Done!");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Commands Done!" + ConsoleColors.RESET);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Loading Events...");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Loading Events..." + ConsoleColors.RESET);
 
         ////Events
         new AntiAdEvent(this);
@@ -104,10 +99,10 @@ public final class Main extends JavaPlugin {
         new FrozenModule(this);
         new PunishModules(this);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Events Done!");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Events Done!" + ConsoleColors.RESET);
 
-        getLogger().log(Level.INFO, "UltimateStaff || Successfully loaded in " + (System.currentTimeMillis() - start) + "ms");
-        getLogger().log(Level.INFO, "UltimateStaff || All Rights Reserved");
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Successfully loaded in " + (System.currentTimeMillis() - start) + "ms" + ConsoleColors.RESET);
+        getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || All Rights Reserved" + ConsoleColors.RESET);
 
     }
 

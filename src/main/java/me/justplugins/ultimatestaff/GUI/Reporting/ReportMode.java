@@ -22,19 +22,19 @@ public class ReportMode extends Gui {
     static Boolean withProof;
     public ReportMode(Main plugin, Player player, Player target) {
         this.plugin = plugin;
-        setTitle("Setting Reports");
-        setRows(6);
+        setTitle("Reporting > " + target.getDisplayName());
+        setRows(4);
         setDefaultItem(CompatibleMaterial.AIR.getItem());
         setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
-        setButton(4, GuiUtils.createButtonItem(getHead(target), Utils.Color("&l" + target)), guiClickEvent -> {
+        setButton(4, GuiUtils.createButtonItem(getHead(target), Utils.Color("&l" + target.getDisplayName())), guiClickEvent -> {
         });
 
-        setButton(11, GuiUtils.createButtonItem(CompatibleMaterial.BOOK, Utils.Color("&a&lReport without Proof"), Utils.Color("&7Click to add Reasons")), guiClickEvent -> {
+        setButton(20, GuiUtils.createButtonItem(CompatibleMaterial.BOOK, Utils.Color("&a&lReport without Proof"), Utils.Color("&7Click to add Reasons")), guiClickEvent -> {
             new GuiManager(plugin).showGUI(player,new ReportGUI(plugin, player,target,false));
         });
 
-        setButton(15, GuiUtils.createButtonItem(CompatibleMaterial.KNOWLEDGE_BOOK, Utils.Color("&a&lReport with Proof"), Utils.Color("&7Click to add Reasons and a link to a video\n&7 of proof that the player is hacking!")), guiClickEvent -> {
+        setButton(24, GuiUtils.createButtonItem(CompatibleMaterial.KNOWLEDGE_BOOK, Utils.Color("&a&lReport with Proof"), Utils.Color("&7Click to add Reasons and a link to a video\n&7 of proof that the player is hacking!")), guiClickEvent -> {
             new GuiManager(plugin).showGUI(player,new ReportGUI(plugin, player,target,true));
         });
 

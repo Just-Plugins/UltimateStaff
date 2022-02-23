@@ -1,9 +1,11 @@
 package me.justplugins.ultimatestaff.Modules.Configs.UserData;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class userdata {
     private String PlayerName, UserFrozenReason, UserMutedReason;
+    private ArrayList<String> pastPunishments; //todo PastPunishments
     private UUID playerUUID;
     private Boolean NameNotify, SilentJoin, OnDuty, UserFrozen, Muted,StaffAFK;
 

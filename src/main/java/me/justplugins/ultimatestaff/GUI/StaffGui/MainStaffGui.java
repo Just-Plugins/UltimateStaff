@@ -6,7 +6,7 @@ import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiManager;
 import com.songoda.core.gui.GuiUtils;
 import me.justplugins.ultimatestaff.GUI.PunishGUI.ActivePunishments;
-import me.justplugins.ultimatestaff.GUI.Reporting.ReportMenu;
+import me.justplugins.ultimatestaff.GUI.Reporting.ActiveReportsGUI;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Permissions;
 import me.justplugins.ultimatestaff.Utils.Utils;
@@ -52,7 +52,7 @@ public class MainStaffGui extends Gui {
 
         //Reports
         setButton(25, GuiUtils.createButtonItem(CompatibleMaterial.BOOK, Utils.Color("&a&lReports"), Utils.Color("&7Click to see the full list")), (event) -> {
-            new GuiManager(plugin).showGUI(player,new ReportMenu(plugin, player));
+            new GuiManager(plugin).showGUI(player,new ActiveReportsGUI(plugin, player));
         });
     }
 }

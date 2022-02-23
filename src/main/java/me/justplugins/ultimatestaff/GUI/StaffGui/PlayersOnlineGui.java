@@ -5,7 +5,6 @@ import com.songoda.core.compatibility.CompatibleSound;
 import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiManager;
 import com.songoda.core.gui.GuiUtils;
-import me.justplugins.ultimatestaff.GUI.Reporting.ReportMenu;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Modules.InventoryModules;
 import me.justplugins.ultimatestaff.Utils.Permissions;

@@ -2,7 +2,7 @@ package me.justplugins.ultimatestaff.Commands;
 
 import com.songoda.core.commands.AbstractCommand;
 import com.songoda.core.gui.GuiManager;
-import me.justplugins.ultimatestaff.GUI.Reporting.ReportMenu;
+import me.justplugins.ultimatestaff.GUI.Reporting.ActiveReportsGUI;
 import me.justplugins.ultimatestaff.Main;
 import me.justplugins.ultimatestaff.Utils.Permissions;
 import org.bukkit.command.CommandSender;
@@ -20,7 +20,7 @@ public class Reports extends AbstractCommand {
     @Override
     protected ReturnType runCommand(CommandSender commandSender, String... strings) {
         Player player = (Player) commandSender;
-        new GuiManager(plugin).showGUI(player, new ReportMenu(plugin,null));
+        new GuiManager(plugin).showGUI(player, new ActiveReportsGUI(plugin,null));
         return ReturnType.SUCCESS;
     }
 
