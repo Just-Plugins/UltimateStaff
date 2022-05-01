@@ -24,21 +24,16 @@ public class Ban extends AbstractCommand {
 
         if (strings.length > 0) {
 
-            String reason = String.join(" ", strings).replace(strings[0] + strings[1], "");
             Player target = Bukkit.getServer().getPlayer(strings[0]);
-            String duration = strings[1];
 
             if (target != null) {
                 //Ban player
-                PunishModules.Ban(player,target,null,reason);
+                PunishModules.Ban(player,target,null,String.join(" ", strings).replace(strings[0] + strings[1], ""));
                 return ReturnType.SUCCESS;
             } else {
-
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
-                return ReturnType.NEEDS_PLAYER;
+                return ReturnType.SYNTAX_ERROR;
             }
         } else {
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /ban [player] [duration] [reason]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

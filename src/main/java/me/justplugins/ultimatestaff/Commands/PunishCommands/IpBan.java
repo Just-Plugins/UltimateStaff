@@ -22,23 +22,16 @@ public class IpBan extends AbstractCommand {
         Player player = (Player) commandSender;
 
         if (strings.length > 0) {
-
-            String reason = String.join(" ", strings).replace(strings[0] + strings[1], "");
             Player target = Bukkit.getServer().getPlayer(strings[0]);
-            String duration = strings[1];
 
             if (target != null) {
                 //Ban player
-                PunishModules.IPBan(player, target, null, reason);
+                PunishModules.IPBan(player, target, null, String.join(" ", strings).replace(strings[0] + strings[1], ""));
                 return ReturnType.SUCCESS;
             } else {
-
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
-                return ReturnType.NEEDS_PLAYER;
+                return ReturnType.SYNTAX_ERROR;
             }
         } else {
-
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /ipban [player] [duration] [reason]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

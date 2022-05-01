@@ -29,11 +29,9 @@ public class InvenSee extends AbstractCommand {
                 InventoryModules.seeInventory(player, target);
                 return ReturnType.SUCCESS;
             } else {
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
                 return ReturnType.NEEDS_PLAYER;
             }
         } else {
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /invensee [player]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

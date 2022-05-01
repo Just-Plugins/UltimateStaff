@@ -4,30 +4,22 @@ import com.songoda.core.compatibility.CompatibleMaterial;
 import com.songoda.core.compatibility.CompatibleSound;
 import com.songoda.core.gui.Gui;
 import com.songoda.core.gui.GuiUtils;
-import me.justplugins.ultimatestaff.Commands.PunishCommands.PunishTarget;
 import me.justplugins.ultimatestaff.Main;
-
-import me.justplugins.ultimatestaff.Modules.Configs.Config;
-import me.justplugins.ultimatestaff.Modules.PunishModules;
 import me.justplugins.ultimatestaff.Utils.PunishTypes;
 import me.justplugins.ultimatestaff.Utils.Utils;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.sql.Time;
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
-import static me.justplugins.ultimatestaff.Utils.Utils.getHead;
 
 public class PlayerPunishGui extends Gui {
     final Main plugin;
     int p;
     Player player;
-    List<String> reasons;
+    List<String> reasons = Collections.singletonList("No Reasons Given");
     PunishTypes punishType;
     Time duration;
 
@@ -36,10 +28,8 @@ public class PlayerPunishGui extends Gui {
         this.plugin = plugin;
         if (reasons != null) this.reasons = reasons;
 
-        System.out.println(Arrays.toString(reasons.toArray()));
-
         setTitle(Utils.Color("&8Punishing > " + target.getName()));
-        setRows(4);
+        setRows(5);
         setDefaultItem(CompatibleMaterial.AIR.getItem());
         setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
@@ -59,7 +49,7 @@ public class PlayerPunishGui extends Gui {
 
         });
 
-        setButton(32,GuiUtils.createButtonItem(CompatibleMaterial.DIAMOND_AXE,Utils.Color("&a&lDone"),Utils.Color("target.getName()")),guiClickEvent -> {
+        setButton(32,GuiUtils.createButtonItem(CompatibleMaterial.EMERALD_BLOCK,Utils.Color("&a&lDone")),guiClickEvent -> {
 
         });
 

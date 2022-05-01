@@ -25,7 +25,7 @@ public class MainStaffGui extends Gui {
 
         //Players Online
         setButton(4, GuiUtils.createButtonItem(CompatibleMaterial.PLAYER_HEAD, Utils.Color("&a&lOnline Players"), Utils.Color("&7Click to see the full list")), (event) -> {
-            new GuiManager(plugin).showGUI(player,new PlayersOnlineGui(plugin, player));
+            new GuiManager(plugin).showGUI(player,new PlayersOnlineGui(plugin, player, PlayersOnlineGui.Page.PLAYERS));
         });
 
         //Staff Settings

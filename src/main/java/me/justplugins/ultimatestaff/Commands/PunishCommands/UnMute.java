@@ -29,8 +29,6 @@ public class UnMute extends AbstractCommand {
             PunishModules.unMute(player,target);
             return ReturnType.SUCCESS;
         } else {
-
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /unmute [player]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

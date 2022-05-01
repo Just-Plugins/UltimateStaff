@@ -30,11 +30,9 @@ public class PunishTarget extends AbstractCommand {
                 new GuiManager(plugin).showGUI(player,new PlayerPunishGui(plugin,player,target,null));
                 return ReturnType.SUCCESS;
             } else {
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
-                return ReturnType.NEEDS_PLAYER;
+                return ReturnType.SYNTAX_ERROR;
             }
         } else {
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /punish [player]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

@@ -24,22 +24,17 @@ public class Kick extends AbstractCommand {
 
         if (strings.length > 0) {
 
-            String reason = String.join(" ", strings).replace(strings[0], "");
             Player target = Bukkit.getServer().getPlayer(strings[0]);
 
             if (target != null) {
 
-                PunishModules.Kick(player,target,reason);
+                PunishModules.Kick(player,target,String.join(" ", strings).replace(strings[0], ""));
                 return ReturnType.SUCCESS;
 
             } else {
-
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
-                return ReturnType.NEEDS_PLAYER;
+                return ReturnType.SYNTAX_ERROR;
             }
         } else {
-
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /kick [player] [reason]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

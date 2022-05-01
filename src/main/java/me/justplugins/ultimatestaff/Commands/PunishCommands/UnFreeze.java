@@ -30,13 +30,9 @@ public class UnFreeze extends AbstractCommand {
                 PunishModules.unFreeze(player,target);
                 return ReturnType.SUCCESS;
             } else {
-
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
-                return ReturnType.NEEDS_PLAYER;
+                return ReturnType.SYNTAX_ERROR;
             }
         } else {
-
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /unfreeze [player]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

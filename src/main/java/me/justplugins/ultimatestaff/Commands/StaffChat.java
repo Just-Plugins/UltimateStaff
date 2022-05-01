@@ -25,7 +25,6 @@ public class StaffChat extends AbstractCommand {
         Player p = (Player) commandSender;
         try {
             if (strings.length == 0) {
-                p.sendMessage(Utils.Color(Utils.prefix() + "&fUse /staffchat [message]"));
                 return ReturnType.SYNTAX_ERROR;
             }
             String message = String.join(" ", strings);
@@ -33,6 +32,7 @@ public class StaffChat extends AbstractCommand {
                 for (Player player: Bukkit.getOnlinePlayers()) {
                     if(player.hasPermission(Permissions.STAFFMODE.getPermission())){
                         player.sendMessage(Utils.Color("&a&lStaffChat &b" + player.getName() + " &7: &f" + message));
+                        return ReturnType.SUCCESS;
                     }
                 }
             }
@@ -40,7 +40,7 @@ public class StaffChat extends AbstractCommand {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        return null;
+        return ReturnType.FAILURE;
     }
 
     @Override

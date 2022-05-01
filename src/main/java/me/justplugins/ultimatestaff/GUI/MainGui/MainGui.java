@@ -22,7 +22,7 @@ public class MainGui extends Gui {
         setDefaultSound(CompatibleSound.BLOCK_NOTE_BLOCK_BIT);
 
 
-        setButton(11, GuiUtils.createButtonItem(CompatibleMaterial.CHEST, Utils.Color("&a&lStaff Gui"), Utils.Color("&7Click to show the StaffGUI")), guiClickEvent -> {
+        setButton(11, GuiUtils.createButtonItem(CompatibleMaterial.CHEST, Utils.Color("&a&lStaff Menu"), Utils.Color("&7Click to show the StaffGUI")), guiClickEvent -> {
             new GuiManager(plugin).showGUI(player,new MainStaffGui(plugin, player));
         });
 

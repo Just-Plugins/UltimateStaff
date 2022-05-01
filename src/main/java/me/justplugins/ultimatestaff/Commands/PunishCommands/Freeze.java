@@ -34,13 +34,9 @@ public class Freeze extends AbstractCommand {
 
                 return ReturnType.SUCCESS;
             } else {
-
-                player.sendMessage(Utils.Color(Utils.prefix() + "&fThat player is not online!"));
-                return ReturnType.NEEDS_PLAYER;
+                return ReturnType.SYNTAX_ERROR;
             }
         } else {
-
-            player.sendMessage(Utils.Color(Utils.prefix() + "&fUse /freeze [player]"));
             return ReturnType.SYNTAX_ERROR;
         }
     }

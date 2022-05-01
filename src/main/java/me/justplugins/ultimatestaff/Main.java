@@ -1,38 +1,27 @@
 package me.justplugins.ultimatestaff;
 
 import com.songoda.core.SongodaCore;
-import com.songoda.core.SongodaPlugin;
-import com.songoda.core.commands.AbstractCommand;
 import com.songoda.core.commands.CommandManager;
-import com.songoda.core.core.SongodaCoreCommand;
-import com.songoda.core.gui.GuiManager;
 import me.justplugins.ultimatestaff.Commands.*;
 import me.justplugins.ultimatestaff.Commands.PunishCommands.*;
 import me.justplugins.ultimatestaff.Events.BannedWords;
-import me.justplugins.ultimatestaff.Events.AntiAdEvent;
-import me.justplugins.ultimatestaff.Events.Cheaters.Cheaters;
-import me.justplugins.ultimatestaff.Events.Cheaters.NoRuleBreakersEvent;
-import me.justplugins.ultimatestaff.Modules.*;
-import me.justplugins.ultimatestaff.Modules.Configs.*;
+import me.justplugins.ultimatestaff.Modules.Configs.Config;
 import me.justplugins.ultimatestaff.Modules.Configs.Reports.ReportManager;
-import me.justplugins.ultimatestaff.Modules.featch.NoRuleBreakersCloud.Cloud.CloudRuleBreakers;
-import me.justplugins.ultimatestaff.Modules.featch.NoRuleBreakersCloud.RuleBreakersManager;
 import me.justplugins.ultimatestaff.Modules.Configs.UserData.UserDataManager;
+import me.justplugins.ultimatestaff.Modules.FrozenModule;
+import me.justplugins.ultimatestaff.Modules.PunishModules;
+import me.justplugins.ultimatestaff.Modules.SilentJoinModule;
+import me.justplugins.ultimatestaff.Modules.StaffPing;
 import me.justplugins.ultimatestaff.Utils.ConsoleColors;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.Arrays;
 import java.util.logging.Level;
 
 public final class Main extends JavaPlugin {
 
-    public RuleBreakersManager RuleBreakers;
 
     @Override
     public void onEnable() {
@@ -55,8 +44,6 @@ public final class Main extends JavaPlugin {
         getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Fetching data from the cloud..." + ConsoleColors.RESET);
 
         // Cloud
-        this.RuleBreakers = new RuleBreakersManager(this);
-        //new MySQLConnector(this,"",4535,"","","",true).connect(Connection::commit);
 
         getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Fetching Done!" + ConsoleColors.RESET);
 
@@ -64,7 +51,12 @@ public final class Main extends JavaPlugin {
 
         // Load Commands
         CommandManager commandManager = new CommandManager(this);
-        commandManager.setNoConsoleMessage(ConsoleColors.RED_BOLD +"UltimateStaff || You can't run this in the console!" + ConsoleColors.RESET);
+        commandManager.setNoPermsMessage("&cYou do not have permission to use this command!");
+        commandManager.setSyntaxErrorMessage(Arrays.asList(
+                ChatColor.RED + "Invalid Syntax!",
+                ChatColor.GRAY + "The valid syntax is: " + ChatColor.GREEN + "%syntax%" + ChatColor.GRAY + "."
+        ));
+        commandManager.setNoCommandMessage(ChatColor.RED + "That command does not exist!");
         commandManager.registerCommandDynamically(new MainCommand(this));
         commandManager.registerCommandDynamically(new StaffChat(this));
         commandManager.registerCommandDynamically(new StaffGui(this));
@@ -90,9 +82,6 @@ public final class Main extends JavaPlugin {
         getLogger().log(Level.INFO, ConsoleColors.BLUE_BOLD + "UltimateStaff || Loading Events..." + ConsoleColors.RESET);
 
         ////Events
-        new AntiAdEvent(this);
-        new NoRuleBreakersEvent(this);
-        new Cheaters(this);
         new SilentJoinModule(this);
         new StaffPing(this);
         new BannedWords(this);
@@ -107,25 +96,9 @@ public final class Main extends JavaPlugin {
     }
 
 
-    //public void onLoad() {
-    //    ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-    //}
-
 
     public FileConfiguration getMainConfig() {
         return Config.Config;
-    }
-    public RuleBreakersManager getRuleBreakers() {
-        return RuleBreakers;
-    }
-    public Optional<CloudRuleBreakers> getRuleBreaker(String name){
-        return getRuleBreakers().getCloudAddons().stream().filter(user -> user.getName().equalsIgnoreCase(name)).findFirst();
-    }
-    public Optional<CloudRuleBreakers> getRuleBreaker(UUID uuid){
-        return getRuleBreakers().getCloudAddons().stream().filter(user -> user.getName().equals(uuid)).findFirst();
-    }
-    public Optional<CloudRuleBreakers> getRuleBreakerip(String ip){
-        return getRuleBreakers().getCloudAddons().stream().filter(user -> user.getName().equals(ip)).findFirst();
     }
 
 }
